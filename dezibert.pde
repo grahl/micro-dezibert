@@ -52,20 +52,6 @@ void setup() {
 
 void loop() {
   
-  //matrix
-  
-  /*
-  for(int i = 0; i <= 8; i += 1){
-    matrix_level(i);
-    delay(100);
-  }
-  
-  for(int i = 8; i >= 0; i -= 1){
-    matrix_level(i);
-    delay(100);
-  }
-  */
-  
   analog_value = analogRead(mic);
   //l(analog_value);
   
@@ -81,7 +67,7 @@ void loop() {
   
   //decibel value on LED-matrix
   int matrix_scale = scale(penalty_level, 20, 8);
-  matrix_level(matrix_scale);
+  level_level(matrix_scale);
   
   if(silent_steps == reduce_every_steps){
     penalty_decrease();
@@ -159,122 +145,37 @@ void finger_down(){
   }
 }
 
+/* 
+
+Level 0 nothing, 1-3 green, 4-6 orange, 7-8 red 
+
+*/
 
 
-//matrix control
-void set_rows(int r0, int r1, int r2, int r3, int r4, int r5, int r6, int r7){
-  
-  if(r0){
-    digitalWrite(32, LOW);
-  }else{
-    digitalWrite(32, HIGH);
-  }
-  
-  if(r1){
-    digitalWrite(33, LOW);
-  }else{
-    digitalWrite(33, HIGH);
-  }
-  
-  if(r2){
-    digitalWrite(34, LOW);
-  }else{
-    digitalWrite(34, HIGH);
-  }
-  
-  if(r3){
-    digitalWrite(35, LOW);
-  }else{
-    digitalWrite(35, HIGH);
-  }
-  
-  if(r4){
-    digitalWrite(36, LOW);
-  }else{
-    digitalWrite(36, HIGH);
-  }
-  
-  if(r5){
-    digitalWrite(37, LOW);
-  }else{
-    digitalWrite(37, HIGH);
-  }
-  
-  if(r6){
-    digitalWrite(38, LOW);
-  }else{
-    digitalWrite(38, HIGH);
-  }
-  
-  if(r7){
-    digitalWrite(39, LOW);
-  }else{
-    digitalWrite(39, HIGH);
-  }
-  
-}
-
-
-
-void matrix_level(int level){
+void led_level(int level){
   
   //set colors
+  if(level == 0){
+    digitalWrite(22, LOW);
+    digitalWrite(23, LOW);
+    digitalWrite(24, LOW);
+  }else
   if(level > 0 && level <= 3){
-    //green
-    for(int i = 22; i <= 29; i += 1){
-      digitalWrite(i, LOW);
-    }
-    for(int i = 40; i <= 49; i += 1){
-      digitalWrite(i, HIGH);
-    }
+    digitalWrite(22, HIGH);
+    digitalWrite(23, LOW);
+    digitalWrite(24, LOW);
   }else
   if(level > 3 && level <= 6){
-    //orange
-    for(int i = 22; i <= 29; i += 1){
-      digitalWrite(i, HIGH);
-    }
-    for(int i = 40; i <= 49; i += 1){
-      digitalWrite(i, HIGH);
-    }
+    digitalWrite(22, HIGH);
+    digitalWrite(23, HIGH);
+    digitalWrite(24, LOW);
   }else
   if(level > 6 && level <= 8){
-    //red
-    for(int i = 22; i <= 29; i += 1){
-      digitalWrite(i, HIGH);
-    }
-    for(int i = 40; i <= 49; i += 1){
-      digitalWrite(i, LOW);
-    }
+    digitalWrite(22, HIGH);
+    digitalWrite(23, HIGH);
+    digitalWrite(24, HIGH);
   }
-  
-  if(level == 0){
-    set_rows(0, 0, 0, 0, 0, 0, 0, 0);
-  }else
-  if(level == 1){
-    set_rows(1, 0, 0, 0, 0, 0, 0, 0);
-  }else
-  if(level == 2){
-    set_rows(1, 1, 0, 0, 0, 0, 0, 0);
-  }
-  if(level == 3){
-    set_rows(1, 1, 1, 0, 0, 0, 0, 0);
-  }else
-  if(level == 4){
-    set_rows(1, 1, 1, 1, 0, 0, 0, 0);
-  }else
-  if(level == 5){
-    set_rows(1, 1, 1, 1, 1, 0, 0, 0);
-  }else
-  if(level == 6){
-    set_rows(1, 1, 1, 1, 1, 1, 0, 0);
-  }else
-  if(level == 7){
-    set_rows(1, 1, 1, 1, 1, 1, 1, 0);
-  }else
-  if(level == 8){
-    set_rows(1, 1, 1, 1, 1, 1, 1, 1);
-  }
-}
+ }
 
 
 
