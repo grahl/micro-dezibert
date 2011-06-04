@@ -13,8 +13,8 @@ Client client(server, 80);
 
 
 // hardware
-int mic = 0;
-int servo_port = 9;
+int mic = 3;
+int servo_port = 5;
 
 //setup
 int treshold = 2; //5: ich und thommy allein im raum; laptopsound schlägt an, komplette stille senkt den finger. 8: lärmige Cs
@@ -60,14 +60,14 @@ void loop() {
   //l(diff);
   
   //read taster
-  int taster = digitalRead(13);
+  int taster = digitalRead(7);
   if(taster){
     diff = 100;
   } 
   
   //decibel value on LED-matrix
   int matrix_scale = scale(penalty_level, 20, 8);
-  level_level(matrix_scale);
+  led_level(matrix_scale);
   
   if(silent_steps == reduce_every_steps){
     penalty_decrease();
@@ -156,24 +156,24 @@ void led_level(int level){
   
   //set colors
   if(level == 0){
-    digitalWrite(22, LOW);
-    digitalWrite(23, LOW);
-    digitalWrite(24, LOW);
+    analogWrite(0, 0);
+    analogWrite(1, 0);
+    analogWrite(2, 0);
   }else
   if(level > 0 && level <= 3){
-    digitalWrite(22, HIGH);
-    digitalWrite(23, LOW);
-    digitalWrite(24, LOW);
+    analogWrite(0, 255);
+    analogWrite(1, 0);
+    analogWrite(2, 0);
   }else
   if(level > 3 && level <= 6){
-    digitalWrite(22, HIGH);
-    digitalWrite(23, HIGH);
-    digitalWrite(24, LOW);
+    analogWrite(0, 0);
+    analogWrite(1, 255);
+    analogWrite(2, 0);
   }else
   if(level > 6 && level <= 8){
-    digitalWrite(22, HIGH);
-    digitalWrite(23, HIGH);
-    digitalWrite(24, HIGH);
+    analogWrite(0, 0);
+    analogWrite(1, 0);
+    analogWrite(2, 255);
   }
  }
 
@@ -210,4 +210,6 @@ int scale(float val, int in_max, int iwant_max){
 //log
 void l(int i){
   Serial.println(i);
+  
+  
 }
