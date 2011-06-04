@@ -8,8 +8,8 @@ The goal of micro-dezibert is to provide a simplified version, which does not re
 
 * 1x ROB-09065 Servo - Small
 * 1x COM-00105 Triple Output LED RGB
-** 2x 100Ω Resistor
-** 1x 180Ω Resistor
+ * 2x 100Ω Resistor
+ * 1x 180Ω Resistor
 * 1x BOB-08669 Breakout Board for Electric Microphone
 * 1x DEV-09219 Arduino Pro 328 - 5V/16MHz or any similar Arduino
 * 1x Random switch (any button able to be pushed when lever reaches maximum)
